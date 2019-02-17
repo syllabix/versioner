@@ -31,7 +31,7 @@ d. Output a meaningful changelog.
 
 this project is in a pre release state, and is currently only available via installing from source, thus as a prerequisite you will need the [Go tooling installed](https://golang.org/dl/).
 
-`go get -u github.com/go-swagger/go-swagger/cmd/swagger`
+`go get -u github.com/syllabix/versioner`
 
 Once installed - and ensuring the binary is in your system `PATH` - simply navigate into a git repostory and run `versioner`. if your repository is using conventional commits, a meaningful version should be output
 
