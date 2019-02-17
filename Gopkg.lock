@@ -26,6 +26,14 @@
   version = "v0.0.4"
 
 [[projects]]
+  digest = "1:ea0700160aca4ef099f4e06686a665a87691f4248dddd40796925eda2e46bd64"
+  name = "github.com/rakyll/statik"
+  packages = ["fs"]
+  pruneopts = "UT"
+  revision = "1355192d24db2566a83c3914e187e2a7e7679832"
+  version = "v0.1.5"
+
+[[projects]]
   branch = "master"
   digest = "1:8207c052fb873f83c61a5aa16f6add5feb9881eda2112b56f69fd3b9e7f55c3f"
   name = "golang.org/x/sys"
@@ -36,6 +44,9 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/fatih/color"]
+  input-imports = [
+    "github.com/fatih/color",
+    "github.com/rakyll/statik/fs",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
