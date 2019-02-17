@@ -21,7 +21,7 @@ func main() {
 	}
 
 	if showVersion {
-		color.Cyan("Versioner v%s", diagnostic.AppVersion)
+		color.Cyan("Versioner %s", diagnostic.AppVersion)
 		os.Exit(0)
 	}
 

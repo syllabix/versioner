@@ -1,13 +1,13 @@
 PKG := github.com/syllabix/versioner
 MAIN := cmd/cli/*.go
 
-BUILD_VERSION=`git describe --tags`
+BUILD_VERSION=`git describe --abbrev=0`
 
 # Expose compile-time information as linker symbols
-LDFLAGS += -X 'github.com/syllabix/versioner/internal.diagnostic.AppVersion=${BUILD_VERSION}'
-LDFLAGS += -X 'github.com/syllabix/versioner/internal.diagnostic.BuildTimestamp=`date +%Y-%m-%dT%H:%M:%S%:z`'
-LDFLAGS += -X 'github.com/syllabix/versioner/internal.diagnostic.CommitHash=`git rev-parse HEAD`'
-LDFLAGS += -X 'github.com/syllabix/versioner/internal.diagnostic.GoVersion=`go version`'
+LDFLAGS += -X 'github.com/syllabix/versioner/internal/diagnostic.AppVersion=${BUILD_VERSION}'
+LDFLAGS += -X 'github.com/syllabix/versioner/internal/diagnostic.BuildTimestamp=`date +%Y-%m-%dT%H:%M:%S%:z`'
+LDFLAGS += -X 'github.com/syllabix/versioner/internal/diagnostic.CommitHash=`git rev-parse HEAD`'
+LDFLAGS += -X 'github.com/syllabix/versioner/internal/diagnostic.GoVersion=`go version`'
 # Omit symbol table and debug info, leads to a smaller binary
 LDFLAGS += -s
 
