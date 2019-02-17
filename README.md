@@ -1,4 +1,6 @@
-# versioner
+# `versioner`
+[![Go Report Card](https://goreportcard.com/badge/github.com/syllabix/versioner)](https://goreportcard.com/report/github.com/syllabix/versioner)
+
 compute semantic versions and generate changelogs
 
 ## motivation
@@ -31,7 +33,7 @@ this project is in a pre release state, and is currently only available via inst
 
 `go get -u github.com/go-swagger/go-swagger/cmd/swagger`
 
-Once installed - and ensuring the binary is in your system `PATH` - simply navigate into a git repostory and run `versioner`. if your repository is using conventional commits, a meaningful version should be output.
+Once installed - and ensuring the binary is in your system `PATH` - simply navigate into a git repostory and run `versioner`. if your repository is using conventional commits, a meaningful version should be output
 
 ### roadmap
 0. Finish changelog generator
