@@ -12,5 +12,6 @@
 *.out
 
 .build
+build
 
 .DS_STORE
