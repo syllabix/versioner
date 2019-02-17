@@ -28,6 +28,7 @@ func main() {
 	version, err := versioner.Next()
 	if err != nil {
 		color.Red("unable to determine next version\n%v", err)
+		os.Exit(1)
 	}
 	color.Green("%s", version)
 }
