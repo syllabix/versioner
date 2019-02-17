@@ -42,21 +42,21 @@ help:
 ## Build binary using the go link tool to set dianostic variables
 build:
 	$(mkdir -p ./build)
-	$(GO_BUILD) -o ./.build/versioner $(PKG)/cmd/cli
+	$(GO_BUILD) -o ./build/versioner $(PKG)/cmd/cli
 
 buildwindows64:
 	$(mkdir -p ./build/windows)
-	env GOOS=windows GARCH=amd64 $(GO_BUILD) -o ./.build/windows/versioner.exe $(PKG)/cmd/cli
+	env GOOS=windows GARCH=amd64 $(GO_BUILD) -o ./build/windows/versioner.exe $(PKG)/cmd/cli
 
 buildlinux64:
 	$(mkdir -p ./build/linux)
-	env GOOS=linux GARCH=amd64 $(GO_BUILD) -o ./.build/linux/versioner.exe $(PKG)/cmd/cli
+	env GOOS=linux GARCH=amd64 $(GO_BUILD) -o ./build/linux/versioner.exe $(PKG)/cmd/cli
 
 ## Build and run the binary
 exec:
 	$(mkdir -p ./build)
-	$(GO_BUILD) -o ./.build/versioner $(PKG)/cmd/cli
-	.build/versioner
+	$(GO_BUILD) -o ./build/versioner $(PKG)/cmd/cli
+	build/versioner
 
 ## Run all tests.
 test:
@@ -65,4 +65,4 @@ test:
 ## Removes generated files
 clean:
 	rm -f ./coverage.out
-	rm -rf ./.build
+	rm -rf ./build

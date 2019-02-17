@@ -29,11 +29,16 @@ d. Output a meaningful changelog.
 
 ### usage
 
-this project is in a pre release state, and is currently only available via installing from source, thus as a prerequisite you will need the [Go tooling installed](https://golang.org/dl/).
+this project is in a pre release state, and can be installed in two ways:
 
-`go get -u github.com/syllabix/versioner`
+1. install from source:
+you will need the [Go tooling installed](https://golang.org/dl/). then run:
 
-Once installed - and ensuring the binary is in your system `PATH` - simply navigate into a git repostory and run `versioner`. if your repository is using conventional commits, a meaningful version should be output
+    `go get -u github.com/syllabix/versioner`
+
+2. Download a binary from the from the latest built release [here](https://github.com/syllabix/versioner/releases)
+
+Once downloaded - and ensuring the binary is in your system `PATH` - simply navigate into a git repostory and run `versioner`. if your repository is using conventional commits, a meaningful version should be output
 
 ### roadmap
 0. Finish changelog generator
