@@ -1,5 +1,5 @@
 PKG := github.com/syllabix/versioner
-MAIN := cmd/cli/*.go
+MAIN := cmd/versioner/*.go
 
 BUILD_VERSION=`git describe --abbrev=0`
 
@@ -42,20 +42,20 @@ help:
 ## Build binary using the go link tool to set dianostic variables
 build:
 	$(mkdir -p ./build)
-	$(GO_BUILD) -o ./build/versioner $(PKG)/cmd/cli
+	$(GO_BUILD) -o ./build/versioner $(PKG)/cmd/versioner
 
 buildwindows64:
 	$(mkdir -p ./build/windows)
-	env GOOS=windows GARCH=amd64 $(GO_BUILD) -o ./build/windows/versioner.exe $(PKG)/cmd/cli
+	env GOOS=windows GARCH=amd64 $(GO_BUILD) -o ./build/windows/versioner_windows_amd64.exe $(PKG)/cmd/versioner
 
 buildlinux64:
 	$(mkdir -p ./build/linux)
-	env GOOS=linux GARCH=amd64 $(GO_BUILD) -o ./build/linux/versioner.exe $(PKG)/cmd/cli
+	env GOOS=linux GARCH=amd64 $(GO_BUILD) -o ./build/linux/versioner_linux_amd64 $(PKG)/cmd/versioner
 
 ## Build and run the binary
 exec:
 	$(mkdir -p ./build)
-	$(GO_BUILD) -o ./build/versioner $(PKG)/cmd/cli
+	$(GO_BUILD) -o ./build/versioner $(PKG)/cmd/versioner
 	build/versioner
 
 ## Run all tests.
