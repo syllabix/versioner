@@ -14,14 +14,15 @@ import (
 	"github.com/fatih/color"
 )
 
+var (
+	showVersion bool
+	logtitle    string
+)
+
 func main() {
 
-	var showVersion bool
 	flag.BoolVar(&showVersion, "v", false, "print the current version")
-
-	var logtitle string
 	flag.StringVar(&logtitle, "-o", "CHANGELOG.md", "sets the name of the output file")
-
 	flag.Parse()
 
 	if flag.Arg(0) == "version" {
@@ -33,22 +34,22 @@ func main() {
 		os.Exit(0)
 	}
 
-	var to string
-	vTag, err := tag.GetLatest()
+	var latest string
+	versionTag, err := tag.GetLatest()
 	if err == nil {
-		to = vTag
+		latest = versionTag
 	} else {
 		// no tags were found - assuming new project
-		vTag = "0.0.0"
+		versionTag = "0.0.0"
 	}
 
-	version, err := semver.Parse(vTag)
+	version, err := semver.Parse(versionTag)
 	if err != nil {
 		color.Red("%+v", err)
 		os.Exit(1)
 	}
 
-	msgs, err := commit.MessagesInRange("HEAD", to)
+	msgs, err := commit.MessagesInRange("HEAD", latest)
 	if err != nil {
 		color.Red("%+v", err)
 		os.Exit(1)
