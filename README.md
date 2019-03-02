@@ -34,7 +34,7 @@ this project is in a pre release state, and can be installed in two ways:
 1. install from source:
 you will need the [Go tooling installed](https://golang.org/dl/). then run:
 
-    `go get -u github.com/syllabix/versioner`
+    `go get -u github.com/syllabix/versioner/cmd/versioner`
 
 2. Download a binary from the from the latest built release [here](https://github.com/syllabix/versioner/releases)
 

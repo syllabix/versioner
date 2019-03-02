@@ -1,19 +1,11 @@
-# Changelog - v0.2.1
-#### Released Feb 17 2019
-
-
-
-## Features
-
-feat: changelog generator
-
-
-
+# Changelog - v0.2.3
+#### Released Mar 02 2019
 
 ## Fixes / Minor Updates
 
-docs: update readme
+fix: correct installation instructions and update variables in main for better readability
 
+fix: proper cmd dir naming conventions for simpler source installs
 
 
 ## Release Contributors
