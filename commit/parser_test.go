@@ -237,7 +237,8 @@ func Test_parseMessages(t *testing.T) {
 					Author:  "Sandra Wahooey <s.wahoo@coder.co>",
 					Date:    timeparse("Sat Feb 16 13:25:26 2019 +0100"),
 					Type:    Patch,
-					Subject: "chore: improve test utils",
+					Subject: "chore(service): improve test utils",
+					Scope:   "service",
 				},
 				Message{
 					Author:  "Elmo MacAbee <elmo.macabee@tester.fun>",
@@ -257,6 +258,7 @@ func Test_parseMessages(t *testing.T) {
 					Date:    timeparse("Sat Feb 16 13:01:26 2019 +0100"),
 					Type:    Minor,
 					Subject: "feat(coolthing): made this awesome thing so thingified",
+					Scope:   "coolthing",
 					Body:    "closes task #912312",
 				},
 				Message{
@@ -322,7 +324,7 @@ const (
 	Author: Sandra Wahooey <s.wahoo@coder.co>
 	Date:   Sat Feb 16 13:25:26 2019 +0100
 
-		chore: improve test utils
+		chore(service): improve test utils
 
 	commit c36074b0cd79a85cd5e70ebf524e243c1ee0a8d3
 	Author: Elmo MacAbee <elmo.macabee@tester.fun>

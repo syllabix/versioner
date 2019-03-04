@@ -37,6 +37,7 @@ type Message struct {
 	Author  string
 	Date    time.Time
 	Type    Type
+	Scope   string
 	Subject string
 	Body    string
 	Footer  string
