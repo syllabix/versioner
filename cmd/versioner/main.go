@@ -25,10 +25,10 @@ var (
 
 func main() {
 
-	flag.BoolVar(&showVersion, "v", false, "print the current version")
+	flag.BoolVar(&showVersion, "v", false, "print the current version of the binary")
 	flag.StringVar(&logtitle, "o", "CHANGELOG.md", "sets the name of the output file")
 	flag.BoolVar(&nolog, "nolog", false, "disable generating change log")
-	flag.BoolVar(&printscopes, "print-scopes", true, "print all found scopes delimited by space since most recent annotated tag")
+	flag.BoolVar(&printscopes, "print-scopes", false, "print all found scopes delimited by space since most recent annotated tag")
 	flag.Parse()
 
 	if flag.Arg(0) == "version" {
