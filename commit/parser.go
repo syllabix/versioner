@@ -41,12 +41,13 @@ func parseMessages(r io.Reader) ([]Message, error) {
 		t, s, ok := getTypeAndSubject(line)
 		if ok {
 			msg.Type = t
+			msg.Scope = s.scope
 			if isEmpty(msg.Subject) {
-				msg.Subject = s
+				msg.Subject = s.subject
 			} else if isEmpty(msg.Body) {
-				msg.Body = s
+				msg.Body = s.subject
 			} else {
-				msg.Footer += s
+				msg.Footer += s.subject
 			}
 			continue
 		}
@@ -91,11 +92,21 @@ func getDate(line string) (time.Time, bool) {
 	return time.Time{}, false
 }
 
-func getTypeAndSubject(line string) (Type, string, bool) {
+type subscope struct {
+	subject string
+	scope   string
+}
+
+func getTypeAndSubject(line string) (Type, subscope, bool) {
 	tokens := tokenize(line)
+	var result subscope
 	if len(tokens) == 2 {
 		tk := strings.TrimRight(tokens[0], ":")
-		tk = strings.Split(tk, "(")[0]
+		parts := strings.Split(tk, "(")
+		tk = parts[0]
+		if len(parts) == 2 {
+			result.scope = strings.TrimRight(parts[1], ")")
+		}
 		var ty Type
 		switch tk {
 		case Feat:
@@ -108,9 +119,10 @@ func getTypeAndSubject(line string) (Type, string, bool) {
 			// This is debatable - determine best way to handle these kind of commits
 			ty = Patch
 		}
-		return ty, strings.Trim(line, "\t\n\r "), true
+		result.subject = strings.Trim(line, "\t\n\r ")
+		return ty, result, true
 	}
-	return NoImpact, "", false
+	return NoImpact, result, false
 }
 
 type details []string
