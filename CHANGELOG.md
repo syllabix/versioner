@@ -1,11 +1,23 @@
-# Changelog - v0.2.3
-#### Released Mar 02 2019
+# Changelog - v0.3.2
+#### Released Mar 04 2019
+
+
+
+## Features
+
+feat(cli): add flag to print most recent scopes
+
+
+
 
 ## Fixes / Minor Updates
+
+chore(cli): update flags
 
 fix: correct installation instructions and update variables in main for better readability
 
 fix: proper cmd dir naming conventions for simpler source installs
+
 
 
 ## Release Contributors
