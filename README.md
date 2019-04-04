@@ -40,8 +40,18 @@ you will need the [Go tooling installed](https://golang.org/dl/). then run:
 
 Once downloaded - and ensuring the binary is in your system `PATH` - simply navigate into a git repostory and run `versioner`. if your repository is using conventional commits, a meaningful version should be output
 
+```
+  // possible flags
+  -nolog
+        disable generating change log
+  -o string
+        sets the name of the output file (default "CHANGELOG.md")
+  -print-scopes
+        print all found scopes delimited by space since most recent annotated tag
+  -v    print the current version of the binary
+```
+
 ### roadmap
-0. Finish changelog generator
 1. improve performance
 2. handle pre release versions in a way more reflective of reasonable use cases semver standards.
 3. installable via homebrew

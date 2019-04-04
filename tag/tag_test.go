@@ -11,16 +11,37 @@ import (
 
 // Git Integration Test for GetLatest
 func TestGetLatest(t *testing.T) {
-	// retrieve current branch
-	cur, err := git.CurrentBranch()
+
+	curdir, err := os.Getwd()
 	if err != nil {
-		t.Fatalf("Integration test failed to run: %s", err.Error())
+		t.Fatalf("integration test failed to run: %s", err.Error())
 	}
 
-	defer cleanupBranch(t, cur)
+	// retrieve current branch
+	curbranch, err := git.CurrentBranch()
+	if err != nil {
+		t.Fatalf("integration test failed to run: %s", err.Error())
+	}
+
+	err = os.Mkdir("tt.tmp", os.ModePerm)
+	if err != nil {
+		t.Fatalf("integration test failed to run: %s", err.Error())
+	}
+
+	defer cleanup(t, curbranch, curdir)
+
+	err = os.Chdir("tt.tmp")
+	if err != nil {
+		t.Fatalf("integration test failed to run: %s", err.Error())
+	}
+
+	cmd := exec.Command("git", "init")
+	if err := cmd.Run(); err != nil {
+		t.Fatalf("integration test with Git failed: %v", err)
+	}
 
 	// create and checkout test branch
-	cmd := exec.Command("git", "checkout", "-b", branchname)
+	cmd = exec.Command("git", "checkout", "-b", branchname)
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("integration test with Git failed: %v", err)
 	}
@@ -49,13 +70,11 @@ func TestGetLatest(t *testing.T) {
 	file.WriteString("another file modification\n")
 	addcommit(t, "chore: quick modification for testing purposes")
 
-	// TODO: determine best way to assert this state - mock of some sort?
-	// assert an error occurs when no tags exist
-	// _, err = GetLatest()
-	// if err == nil {
-	// 	t.Errorf("GetLatest() should have returned an error as history has no tags")
-	// 	t.FailNow()
-	// }
+	_, err = GetLatest()
+	if err == nil {
+		t.Errorf("GetLatest() should have returned an error as history has no tags")
+		t.FailNow()
+	}
 
 	file.WriteString("awesome new line in the file!\n")
 	addcommit(t, "feat: important update")
@@ -128,16 +147,26 @@ func testGetLatest(t *testing.T, tag string) {
 	}
 }
 
-func cleanupBranch(t *testing.T, branch string) {
+func cleanup(t *testing.T, branch, curdir string) {
+	err := os.Chdir(curdir)
+	if err != nil {
+		t.Logf("Integration test branch %s failed be removed, please remove manually - sorry :(", branchname)
+	}
+
+	err = os.RemoveAll("tt.tmp")
+	if err != nil {
+		t.Logf("Integration test branch %s failed be removed, please remove manually - sorry :(", branchname)
+	}
+
 	// return to branch user was in before test ran
 	cmd := exec.Command("git", "checkout", branch)
-	if err := cmd.Run(); err != nil {
+	if err = cmd.Run(); err != nil {
 		t.Logf("Integration test branch %s failed be removed, please remove manually - sorry :(", branchname)
 	}
 
 	// delete test branch
 	cleanup := exec.Command("git", "branch", "-D", branchname)
-	err := cleanup.Run()
+	err = cleanup.Run()
 	if err != nil {
 		t.Logf("Integration test branch %s failed be removed, please remove manually - sorry :(", branchname)
 	}
