@@ -7,10 +7,11 @@ compute semantic versions and generate changelogs
 
 after working on setting up automated change releases leveraging conventional commits, it became apparent that the best tools available are opinionated towards their respective langauges and/or runtimes.
 
-this project is focused on building a semver calculator and changelog generator with only two opinions:
+this project is focused on building a semver calculator and changelog generator with 3 opinions:
 
 1. your project is versioned using `git`.
 2. commit messages in the repository follow the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) standard
+3. releases are tagged with [annonated tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
 
 ## `versioner` obectives
 
