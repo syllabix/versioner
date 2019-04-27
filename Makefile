@@ -40,17 +40,22 @@ help:
 	@echo "" >&2
 
 ## Build binary using the go link tool to set dianostic variables
-build:
+build.darwin64:
 	$(mkdir -p ./build)
-	$(GO_BUILD) -o ./build/versioner $(PKG)/cmd/versioner
+	env GOOS=darwin GOARCH=amd64 $(GO_BUILD) -o ./build/darwin/versioner_darwin_amd64 $(PKG)/cmd/versioner
 
-buildwindows64:
+build.windows64:
 	$(mkdir -p ./build/windows)
 	env GOOS=windows GARCH=amd64 $(GO_BUILD) -o ./build/windows/versioner_windows_amd64.exe $(PKG)/cmd/versioner
 
-buildlinux64:
+build.linux64:
 	$(mkdir -p ./build/linux)
 	env GOOS=linux GARCH=amd64 $(GO_BUILD) -o ./build/linux/versioner_linux_amd64 $(PKG)/cmd/versioner
+
+build:
+	$(MAKE) build.darwin64
+	$(MAKE) build.windows64
+	$(MAKE) build.linux64
 
 ## Build and run the binary
 exec:
