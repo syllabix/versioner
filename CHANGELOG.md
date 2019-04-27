@@ -1,28 +1,13 @@
-# Changelog - v0.3.2
-#### Released Apr 04 2019
-
+# Changelog - v0.4.1
+#### Released Apr 27 2019
 
 ## Features
 
-feat(cli): add flag to print most recent scopes
-
-
+feat: moving project to go modules
 
 ## Fixes / Minor Updates
 
-task(docs): add cli flags to usage section in readme
-
-fix(test): improve tag test by setting up new .git repository
-
-chore(changelog): reduce newlines
-
-fix(changelog): stop incorrectly printing dates
-
-chore(cli): update flags
-
-fix: correct installation instructions and update variables in main for better readability
-
-fix: proper cmd dir naming conventions for simpler source installs
+docs: update readme to reflect third opinion on how versioner works
 
 
 ## Release Contributors
