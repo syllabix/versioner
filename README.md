@@ -11,7 +11,7 @@ this project is focused on building a semver calculator and changelog generator 
 
 1. your project is versioned using `git`.
 2. commit messages in the repository follow the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) standard
-3. releases are tagged with [annonated tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
+3. releases are tagged with [annotated tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
 
 ## `versioner` obectives
 
