@@ -2,6 +2,7 @@
 
 _let's do better_ :)
 
+```
 Sun Feb 17 2019
 
 goos: darwin
@@ -23,3 +24,4 @@ BenchmarkComputeNext/
 unknown,_concat_hash-8                  200	   8332962 ns/op	   51070 B/op	     136 allocs/op
 BenchmarkComputeNext/
 unknown,_concat_hash#01-8               200	   8571329 ns/op	   51075 B/op	     136 allocs/op
+```

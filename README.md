@@ -1,13 +1,7 @@
 # `versioner`
 [![Go Report Card](https://goreportcard.com/badge/github.com/syllabix/versioner)](https://goreportcard.com/report/github.com/syllabix/versioner)
 
-compute semantic versions and generate changelogs
-
-## motivation
-
-after working on setting up automated change releases leveraging conventional commits, it became apparent that the best tools available are opinionated towards their respective langauges and/or runtimes.
-
-this project is focused on building a semver calculator and changelog generator with 3 opinions:
+compute semantic versions and generate changelogs with 3 opinions:
 
 1. your project is versioned using `git`.
 2. commit messages in the repository follow the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) standard
