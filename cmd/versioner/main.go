@@ -2,9 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"os"
-	"strings"
 
 	"github.com/syllabix/versioner/changelog"
 	"github.com/syllabix/versioner/commit"
@@ -28,7 +26,7 @@ func main() {
 	flag.BoolVar(&showVersion, "v", false, "print the current version of the binary")
 	flag.StringVar(&logtitle, "o", "CHANGELOG.md", "sets the name of the output file")
 	flag.BoolVar(&nolog, "nolog", false, "disable generating change log")
-	flag.BoolVar(&printscopes, "print-scopes", false, "print all found scopes delimited by space since most recent annotated tag")
+	flag.BoolVar(&printscopes, "print-scopes", false, "print all found scopes at the provided version, falling back the current working version if not provided")
 	flag.Parse()
 
 	if flag.Arg(0) == "version" {
@@ -51,25 +49,22 @@ func main() {
 
 	version, err := semver.Parse(versionTag)
 	if err != nil {
-		color.Red("%+v", err)
-		os.Exit(1)
+		fail(err)
+	}
+
+	if printscopes {
+		scopePrinter(latest)
+		return
 	}
 
 	msgs, err := commit.MessagesInRange("HEAD", latest)
 	if err != nil {
-		color.Red("%+v", err)
-		os.Exit(1)
-	}
-
-	if printscopes {
-		printScopes(msgs)
-		return
+		fail(err)
 	}
 
 	vnext, err := semver.ComputeNext(version, msgs)
 	if err != nil {
-		color.Red("%+v", err)
-		os.Exit(1)
+		fail(err)
 	}
 
 	if !nolog {
@@ -77,33 +72,15 @@ func main() {
 
 		f, err := os.Create(logtitle)
 		if err != nil {
-			color.Red("%+v", err)
-			os.Exit(1)
+			fail(err)
 		}
 		defer f.Close()
 
 		err = generator.Generate(f)
 		if err != nil {
-			color.Red("%+v", err)
-			os.Exit(1)
+			fail(err)
 		}
 	}
 
 	color.Green("%s", vnext)
-}
-
-func printScopes(msgs []commit.Message) {
-	scopes := map[string]struct{}{}
-	var builder strings.Builder
-	for _, m := range msgs {
-		if len(m.Scope) < 1 {
-			continue
-		}
-		_, printed := scopes[m.Scope]
-		if !printed {
-			builder.WriteString(m.Scope + " ")
-		}
-		scopes[m.Scope] = struct{}{}
-	}
-	fmt.Println(builder.String())
 }

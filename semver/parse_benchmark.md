@@ -1,7 +1,7 @@
 ### benchmarks for the semver parse function:
 
 _let's do better_ :)
-
+```
 Sun Feb 17 2019
 
 goos: darwin
@@ -33,3 +33,4 @@ BenchmarkParse/__-8                  1000000	      1101 ns/op	    4225 B/op	    
 BenchmarkParse/0.2.b-8               1000000	      1050 ns/op	    4192 B/op	       5 allocs/op
 BenchmarkParse/0.1c.b-8              1000000	      1305 ns/op	    4241 B/op	       6 allocs/op
 BenchmarkParse/z.zz.zzz-8            1000000	      1175 ns/op	    4225 B/op	       4 allocs/op
+```
