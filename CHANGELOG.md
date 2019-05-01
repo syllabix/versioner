@@ -1,20 +1,20 @@
-# Changelog - v0.4.1
-#### Released Apr 27 2019
+# Changelog - v0.5.1
+#### Released May 01 2019
 
 
 ## Features
 
-feat: moving project to go modules
+feat(scopes): print scopes by version
 
 
 
 ## Fixes / Minor Updates
 
-chore(build): update build scripts
-
-docs: update readme to reflect third opinion on how versioner works
+chore(docs): fix readme typo
 
 
 ## Release Contributors
 
 Tom Stoepker <tom.stoepker@gmail.com>
+
+Tom Stoepker <tstoepker@bol.com>
