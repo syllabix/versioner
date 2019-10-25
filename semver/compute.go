@@ -32,6 +32,7 @@ func ComputeNext(v Version, commits []commit.Message) (Version, error) {
 	min := v.minor
 	ptch := v.patch
 
+	var minorBumped bool
 sumloop:
 	for _, c := range commits {
 		switch c.Type {
@@ -43,8 +44,11 @@ sumloop:
 		case commit.Minor:
 			min = v.minor + 1
 			ptch = 0
+			minorBumped = true
 		case commit.Patch:
-			ptch++
+			if !minorBumped {
+				ptch++
+			}
 		}
 	}
 
