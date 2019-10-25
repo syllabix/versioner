@@ -109,6 +109,15 @@ var ctests = []struct {
 				commit.Message{
 					Type: commit.Minor,
 				},
+				commit.Message{
+					Type: commit.Patch,
+				},
+				commit.Message{
+					Type: commit.Patch,
+				},
+				commit.Message{
+					Type: commit.Patch,
+				},
 			},
 		},
 		want: Version{
