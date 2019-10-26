@@ -247,4 +247,16 @@ var tests = []struct {
 		want:    Version{},
 		wantErr: true,
 	},
+	24: {
+		args: args{
+			s: "0.1.0-beta",
+		},
+		want: Version{
+			major:      0,
+			minor:      1,
+			patch:      0,
+			prerelease: "beta",
+		},
+		wantErr: false,
+	},
 }

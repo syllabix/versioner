@@ -83,6 +83,13 @@ func Parse(s string) (Version, error) {
 				}
 				assign(0)
 				continue
+			case '-':
+				_, err := r.ReadBytes('-')
+				if err != nil {
+					return Version{}, err
+				}
+				assign(0)
+				continue
 			default:
 				return Version{}, fmt.Errorf("%s version number contains invalid , non numeric [0-9] characters", curnumtype)
 			}
