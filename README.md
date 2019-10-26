@@ -37,13 +37,11 @@ Once downloaded - and ensuring the binary is in your system `PATH` - simply navi
 
 ```
   // possible flags
-  -nolog
-        disable generating change log
-  -o string
-        sets the name of the output file (default "CHANGELOG.md")
   -print-scopes
-        print all found scopes delimited by space since most recent annotated tag
+        print all found scopes at the provided version, falling back the current working version if not provided
   -v    print the current version of the binary
+  -with-changelog
+        generates a change log and writes it to CHANGELOG.md
 ```
 
 ### roadmap
