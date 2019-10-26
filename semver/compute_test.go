@@ -28,6 +28,26 @@ func TestComputeNext(t *testing.T) {
 	}
 }
 
+func TestComputeNextPreRelease(t *testing.T) {
+	time.Sleep(time.Millisecond * 1)
+	curhash = func() (string, error) {
+		return "8d4c163", nil
+	}
+
+	for _, tt := range pretests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ComputeNextPreRelease(tt.args.v, tt.args.commits)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ComputeNextPreRelease() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ComputeNextPreRelease() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func BenchmarkComputeNext(b *testing.B) {
 	for _, test := range ctests {
 		b.Run(test.name, func(b *testing.B) {
@@ -172,6 +192,14 @@ var ctests = []struct {
 		},
 		wantErr: false,
 	},
+}
+
+var pretests = []struct {
+	name    string
+	args    cargs
+	want    Version
+	wantErr bool
+}{
 	{
 		name: "semantic pre-release",
 		args: cargs{

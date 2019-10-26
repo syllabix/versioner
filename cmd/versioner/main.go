@@ -20,11 +20,13 @@ func main() {
 		withLog     bool
 		printscopes bool
 		showVersion bool
+		prerelease  string
 	)
 
-	flag.BoolVar(&showVersion, "v", false, "print the current version of the binary")
 	flag.BoolVar(&withLog, "with-changelog", false, "generates a change log and writes it to CHANGELOG.md")
+	flag.BoolVar(&showVersion, "v", false, "print the current version of the binary")
 	flag.BoolVar(&printscopes, "print-scopes", false, "print all found scopes at the provided version, falling back the current working version if not provided")
+	flag.StringVar(&prerelease, "pre-release", "", "bumps the version as a new version for the provided pre-release")
 	flag.Parse()
 
 	if flag.Arg(0) == "version" {
@@ -60,9 +62,28 @@ func main() {
 		fail(err)
 	}
 
-	vnext, err := semver.ComputeNext(version, msgs)
-	if err != nil {
-		fail(err)
+	var vnext semver.Version
+	if len(prerelease) > 0 {
+		preversion, err := semver.Parse(prerelease)
+		if err != nil {
+			fail(err)
+		}
+
+		if preversion.Major() != version.Major() ||
+			preversion.Minor() != version.Minor() ||
+			preversion.Patch() != version.Patch() {
+			version = preversion
+		}
+
+		vnext, err = semver.ComputeNextPreRelease(version, msgs)
+		if err != nil {
+			fail(err)
+		}
+	} else {
+		vnext, err = semver.ComputeNext(version, msgs)
+		if err != nil {
+			fail(err)
+		}
 	}
 
 	if withLog {

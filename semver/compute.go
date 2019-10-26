@@ -19,15 +19,6 @@ func init() {
 // ComputeNext will compute the next semantic version
 func ComputeNext(v Version, commits []commit.Message) (Version, error) {
 
-	if len(v.prerelease) > 0 {
-		pre, err := nextPreRelease(v.prerelease, commits)
-		if err != nil {
-			return Version{}, err
-		}
-		v.prerelease = pre
-		return v, nil
-	}
-
 	maj := v.major
 	min := v.minor
 	ptch := v.patch
@@ -59,7 +50,7 @@ sumloop:
 	}, nil
 }
 
-// nextPreRelease attempts to provide a meaningful update
+// ComputeNextPreRelease attempts to provide a meaningful update
 // to a prelease version, considering the following rules:
 //
 // if pre release version is semantically versioned itself - compute
@@ -69,6 +60,19 @@ sumloop:
 //   - computing the next semantic version if it is a valid semantic version number
 //   - replacing it with the current commit hash
 // if none of the above can be determined - concatenate the current commit hash
+func ComputeNextPreRelease(v Version, commits []commit.Message) (Version, error) {
+	if len(v.prerelease) > 0 {
+		pre, err := nextPreRelease(v.prerelease, commits)
+		if err != nil {
+			return Version{}, err
+		}
+		v.prerelease = pre
+		return v, nil
+	}
+
+	return Version{}, fmt.Errorf("the provided version did not contain a pre release: %s", v)
+}
+
 func nextPreRelease(vstr string, commits []commit.Message) (string, error) {
 
 	v, err := Parse(vstr)
