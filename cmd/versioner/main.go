@@ -14,18 +14,16 @@ import (
 	"github.com/fatih/color"
 )
 
-var (
-	showVersion bool
-	logtitle    string
-	nolog       bool
-	printscopes bool
-)
-
 func main() {
 
+	var (
+		withLog     bool
+		printscopes bool
+		showVersion bool
+	)
+
 	flag.BoolVar(&showVersion, "v", false, "print the current version of the binary")
-	flag.StringVar(&logtitle, "o", "CHANGELOG.md", "sets the name of the output file")
-	flag.BoolVar(&nolog, "nolog", false, "disable generating change log")
+	flag.BoolVar(&withLog, "with-changelog", false, "generates a change log and writes it to CHANGELOG.md")
 	flag.BoolVar(&printscopes, "print-scopes", false, "print all found scopes at the provided version, falling back the current working version if not provided")
 	flag.Parse()
 
@@ -67,10 +65,10 @@ func main() {
 		fail(err)
 	}
 
-	if !nolog {
+	if withLog {
 		generator := changelog.NewGenerator(vnext, msgs)
 
-		f, err := os.Create(logtitle)
+		f, err := os.Create("CHANGELOG.md")
 		if err != nil {
 			fail(err)
 		}
