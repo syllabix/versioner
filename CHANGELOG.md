@@ -1,20 +1,18 @@
-# Changelog - v0.5.1
-#### Released May 01 2019
+# Changelog - v0.6.0
+#### Released Oct 26 2019
 
 
 ## Features
 
-feat(scopes): print scopes by version
+feat(changelog): no longer default to generating a changelog and simplifyflags to a single with changelog option
 
 
 
 ## Fixes / Minor Updates
 
-chore(docs): fix readme typo
+fix: fixes issue where minor versions were bumped incorrectly
 
 
 ## Release Contributors
-
-Tom Stoepker <tom.stoepker@gmail.com>
 
 Tom Stoepker <tstoepker@bol.com>
