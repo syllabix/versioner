@@ -1,18 +1,20 @@
-# Changelog - v0.6.0
+# Changelog - v0.7.0
 #### Released Oct 26 2019
 
 
 ## Features
 
-feat(changelog): no longer default to generating a changelog and simplifyflags to a single with changelog option
+feat(pre-release): explicitly handle pre-releases
 
 
 
 ## Fixes / Minor Updates
 
-fix: fixes issue where minor versions were bumped incorrectly
+chore(docs): update the readme with pre release info
+
+fix(parse): pre release version with patch 0 failed to parse
 
 
 ## Release Contributors
 
-Tom Stoepker <tstoepker@bol.com>
+Taskify Bot <bot@taskify.com>
