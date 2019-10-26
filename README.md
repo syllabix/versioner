@@ -37,6 +37,8 @@ Once downloaded - and ensuring the binary is in your system `PATH` - simply navi
 
 ```
   // possible flags
+  -pre-release string
+        bumps the version as a new version for the provided pre-release
   -print-scopes
         print all found scopes at the provided version, falling back the current working version if not provided
   -v    print the current version of the binary
@@ -44,9 +46,36 @@ Once downloaded - and ensuring the binary is in your system `PATH` - simply navi
         generates a change log and writes it to CHANGELOG.md
 ```
 
+#### pre releases
+pre releases are handled with versioner by explicitly passing in the upcoming version with it's respective zero value pre release template. versioner will then try to reasonably bump the pre release version with conventional commits as long as the major.minor.patch passed to the `pre-release` flag is the same as the previous annotated tag in your git history
+
+for example:
+```
+// upcoming release is 0.2.0 - we would like bump on a release candidate with it's own semantic version
+
+for example: 0.2.0-rc.0.0.1
+
+// then work starts for 0.2.0
+git commit -m "task: awesome"
+git commit -m "task: great"
+
+// time to release pre release
+versioner -pre-release 0.2.0-rc.0.0.0
+
+// outputs =>
+0.2.0-rc.0.0.2
+
+// more work happens
+git commit -m "feat: super great"
+
+// time to release
+versioner -pre-release 0.2.0-rc.0.0.0
+
+// outputs =>
+0.2.0-rc.0.1.0
+```
+
 ### roadmap
-1. improve performance
-2. handle pre release versions in a way more reflective of reasonable use cases semver standards.
-3. installable via homebrew
-4. installable via chocolatey
-4. installable via apt-get
+1. installable via homebrew
+2. installable via chocolatey
+3. installable via apt-get
