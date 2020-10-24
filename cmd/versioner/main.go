@@ -24,6 +24,7 @@ func main() {
 		prerelease  string
 		tagPrefix   string
 		strictMode  bool
+		path        string
 	)
 
 	flag.BoolVar(&withLog, "with-changelog", false, "generates a change log and writes it to CHANGELOG.md")
@@ -32,6 +33,7 @@ func main() {
 	flag.StringVar(&prerelease, "pre-release", "", "bumps the version as a new version for the provided pre-release")
 	flag.StringVar(&tagPrefix, "tag-prefix", "", "match latest tag based on prefix filter")
 	flag.BoolVar(&strictMode, "strict", false, "fail when there is no version from a tag or version can not be parsed")
+	flag.StringVar(&path, "path", ".", "only populate commits made under this path")
 	flag.Parse()
 
 	if flag.Arg(0) == "version" {
@@ -66,11 +68,11 @@ func main() {
 	}
 
 	if printscopes {
-		scopePrinter(latest)
+		scopePrinter(latest, path)
 		return
 	}
 
-	msgs, err := commit.MessagesInRange("HEAD", latest)
+	msgs, err := commit.MessagesInRange("HEAD", latest, path)
 	if err != nil {
 		fail(err)
 	}
