@@ -21,12 +21,14 @@ func main() {
 		printscopes bool
 		showVersion bool
 		prerelease  string
+		tagPrefix   string
 	)
 
 	flag.BoolVar(&withLog, "with-changelog", false, "generates a change log and writes it to CHANGELOG.md")
 	flag.BoolVar(&showVersion, "v", false, "print the current version of the binary")
 	flag.BoolVar(&printscopes, "print-scopes", false, "print all found scopes at the provided version, falling back the current working version if not provided")
 	flag.StringVar(&prerelease, "pre-release", "", "bumps the version as a new version for the provided pre-release")
+	flag.StringVar(&tagPrefix, "tag-prefix", "", "match latest tag based on prefix filter")
 	flag.Parse()
 
 	if flag.Arg(0) == "version" {
@@ -39,7 +41,7 @@ func main() {
 	}
 
 	var latest string
-	versionTag, err := tag.GetLatest()
+	versionTag, err := tag.GetLatest(tagPrefix)
 	if err == nil {
 		latest = versionTag
 	} else {
