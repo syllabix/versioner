@@ -8,9 +8,13 @@ import (
 // MessagesInRange will return commit messages between a valid start and end
 // range identifier, returning an empty slice of Message and a non nil error
 // on failure
-func MessagesInRange(start, end string) ([]Message, error) {
+func MessagesInRange(start, end, path string) ([]Message, error) {
 	if isEmpty(start) {
 		start = "HEAD"
+	}
+
+	if isEmpty(path) {
+		path = "."
 	}
 
 	var logrange string

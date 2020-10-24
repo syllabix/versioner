@@ -16,7 +16,7 @@ func fail(err error) {
 	os.Exit(1)
 }
 
-func scopePrinter(latest string) {
+func scopePrinter(latest, path string) {
 	args := flag.Args()
 	v := "HEAD"
 	n := len(args)
@@ -25,24 +25,24 @@ func scopePrinter(latest string) {
 	}
 
 	if v == "HEAD" {
-		msgs, err := commit.MessagesInRange("HEAD", latest)
+		msgs, err := commit.MessagesInRange("HEAD", latest, path)
 		if err != nil {
 			fail(err)
 		}
 		printScopes(msgs)
 	} else {
-		msgs := commitsForVersion(v)
+		msgs := commitsForVersion(v, path)
 		printScopes(msgs)
 	}
 }
 
-func commitsForVersion(v string) []commit.Message {
+func commitsForVersion(v, path string) []commit.Message {
 	prior, err := tag.GetVersionPriorTo(v)
 	if err != nil {
 		color.Red("%+v", err)
 		os.Exit(1)
 	}
-	msgs, err := commit.MessagesInRange(v, prior)
+	msgs, err := commit.MessagesInRange(v, prior, path)
 	if err != nil {
 		color.Red("%+v", err)
 		os.Exit(1)
