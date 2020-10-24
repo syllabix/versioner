@@ -70,7 +70,7 @@ func TestGetLatest(t *testing.T) {
 	file.WriteString("another file modification\n")
 	addcommit(t, "chore: quick modification for testing purposes")
 
-	_, err = GetLatest()
+	_, err = GetLatest("")
 	if err == nil {
 		t.Errorf("GetLatest() should have returned an error as history has no tags")
 		t.FailNow()
@@ -137,7 +137,7 @@ func cleanupTag(t *testing.T, tag string) {
 }
 
 func testGetLatest(t *testing.T, tag string) {
-	version, err := GetLatest()
+	version, err := GetLatest("")
 	if err != nil {
 		t.Errorf("GetLatest() should have found a valid tag version and returned a nil error")
 	}

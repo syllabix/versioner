@@ -9,10 +9,10 @@ import (
 // Next will return the next semantic version derived
 // from a git repository.
 // A zero value version and non nil error will be returned in the event of failure
-func Next() (semver.Version, error) {
+func Next(tagPrefix string) (semver.Version, error) {
 
 	var to string
-	vTag, err := tag.GetLatest()
+	vTag, err := tag.GetLatest(tagPrefix)
 	if err == nil {
 		to = vTag
 	} else {
