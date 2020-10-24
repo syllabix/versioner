@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"os"
 
@@ -22,6 +23,7 @@ func main() {
 		showVersion bool
 		prerelease  string
 		tagPrefix   string
+		strictMode  bool
 	)
 
 	flag.BoolVar(&withLog, "with-changelog", false, "generates a change log and writes it to CHANGELOG.md")
@@ -29,6 +31,7 @@ func main() {
 	flag.BoolVar(&printscopes, "print-scopes", false, "print all found scopes at the provided version, falling back the current working version if not provided")
 	flag.StringVar(&prerelease, "pre-release", "", "bumps the version as a new version for the provided pre-release")
 	flag.StringVar(&tagPrefix, "tag-prefix", "", "match latest tag based on prefix filter")
+	flag.BoolVar(&strictMode, "strict", false, "fail when there is no version from a tag or version can not be parsed")
 	flag.Parse()
 
 	if flag.Arg(0) == "version" {
@@ -45,13 +48,21 @@ func main() {
 	if err == nil {
 		latest = versionTag
 	} else {
-		// no tags were found - assuming new project
-		versionTag = "0.0.0"
+		if strictMode {
+			fail(errors.New("couldn't compute last version tag"))
+		} else {
+			// no tags were found - assuming new project
+			versionTag = "0.0.0"
+		}
 	}
 
 	version, err := semver.Parse(versionTag)
 	if err != nil {
-		fail(err)
+		if strictMode {
+			fail(err)
+		} else {
+			version, _ = semver.Parse("0.0.0")
+		}
 	}
 
 	if printscopes {
