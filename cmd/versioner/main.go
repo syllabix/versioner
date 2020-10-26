@@ -63,7 +63,7 @@ func main() {
 		if strictMode {
 			fail(err)
 		} else {
-			version, _ = semver.Parse("0.0.0")
+			version = semver.Version{}
 		}
 	}
 
