@@ -24,7 +24,7 @@ func MessagesInRange(start, end, path string) ([]Message, error) {
 		logrange = fmt.Sprintf("%s...%s", start, end)
 	}
 
-	cmd := exec.Command("git", "log", logrange)
+	cmd := exec.Command("git", "log", logrange, path)
 	out, err := cmd.StdoutPipe()
 	if err != nil {
 		return []Message{}, nil
