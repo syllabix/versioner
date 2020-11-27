@@ -1,4 +1,5 @@
 # `versioner`
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/syllabix/versioner)](https://goreportcard.com/report/github.com/syllabix/versioner)
 
 compute semantic versions and generate changelogs with 3 opinions:
@@ -21,35 +22,42 @@ c. Derive an accurate semantic version number from a `git` managed history that 
 
 d. Output a meaningful changelog.
 
-
 ### usage
 
 this project is in a pre release state, and can be installed in two ways:
 
-1. install from source:
-you will need the [Go tooling installed](https://golang.org/dl/). then run:
+1.  install from source:
+    you will need the [Go tooling installed](https://golang.org/dl/). then run:
 
-    `go get -u github.com/syllabix/versioner/cmd/versioner`
+        `go get -u github.com/syllabix/versioner/cmd/versioner`
 
-2. Download a binary from the from the latest built release [here](https://github.com/syllabix/versioner/releases)
+2.  Download a binary from the from the latest built release [here](https://github.com/syllabix/versioner/releases)
 
 Once downloaded - and ensuring the binary is in your system `PATH` - simply navigate into a git repostory and run `versioner`. if your repository is using conventional commits, a meaningful version should be output
 
 ```
   // possible flags
+  -path string
+        only populate commits made under this path (default ".")
   -pre-release string
         bumps the version as a new version for the provided pre-release
   -print-scopes
         print all found scopes at the provided version, falling back the current working version if not provided
+  -strict
+        fail when there is no version from a tag or version can not be parsed
+  -tag-prefix string
+        match latest tag based on prefix filter
   -v    print the current version of the binary
   -with-changelog
         generates a change log and writes it to CHANGELOG.md
 ```
 
 #### pre releases
+
 pre releases are handled with versioner by explicitly passing in the upcoming version with it's respective zero value pre release template. versioner will then try to reasonably bump the pre release version with conventional commits as long as the major.minor.patch passed to the `pre-release` flag is the same as the previous annotated tag in your git history
 
 for example:
+
 ```
 // upcoming release is 0.2.0 - we would like bump on a release candidate with it's own semantic version
 
@@ -76,6 +84,7 @@ versioner -pre-release 0.2.0-rc.0.0.0
 ```
 
 ### roadmap
+
 1. installable via homebrew
 2. installable via chocolatey
 3. installable via apt-get
