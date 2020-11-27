@@ -48,7 +48,7 @@ func main() {
 	var latest string
 	versionTag, err := tag.GetLatest(tagPrefix)
 	if err == nil {
-		latest = versionTag
+		latest = tagPrefix + versionTag
 	} else {
 		if strictMode {
 			fail(errors.New("couldn't compute last version tag"))
